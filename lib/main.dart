@@ -1,53 +1,154 @@
-/// My repo has about 50+ branches.
+import 'package:flutter/material.dart';
 
-/// 0. main
-/// 1.branch list
-/// 2. AppBar
-/// 3. Flutter Text Details
-/// 3. Floating action button
-/// 4. Bottom navigation bar
-/// 6. Navigation drawer
-/// 7. Row - Column
-/// 8. Container
-/// 9. Button
-/// 10. Simple form and alert dialog
-/// 11. Radio - Checkbox
-/// 12. TextFormField
-/// 13. Navigation / Routing screens
-/// 14. Circular Progress Indicator
-/// 15. Linear progress Indicator
-/// 16. Circle Avatar (set profile pic)
-/// 17. ListTile
-/// 18. ListView
-/// 19. MediaQuery
-/// 20. LayoutBuilder
-/// 21. AspectRatio
-/// 22. Orientation
-/// 23. Fractionally SizedBox
-/// 24. Expanded / Flexible
-/// 25. TabBar
-/// 26. Stateful Widget Lifecycle
-/// 27. Counter App
-/// 28. showModal Bottom sheet
-/// 29.TODO_app
-/// 30. Time picker
-/// 31. Date picker
-/// 32. Date Range picker
-/// 33. Rest Api intro
-/// 34. Rest Api GET
-/// 35. Rest Api POST
-/// 36. Task Manager App
-/// 37. GetX Routing
-/// 38. GetX State Management
-/// 39. Firebase
-/// 40. Firebase (realtime)
-/// 41. Firebase (storage)
-/// 42. Firebase (messaging)
-/// 43. Football Scorer made by Firebase real time database
-/// 44. Google Map
-/// 45. E commerce App
-/// 46. Quiz App
-/// 47. Food App
-///
-/// and If any update coming in my any branch or topic I will write here just simply that...
-/// for example "Updated Branch (branch name)"
+main(){
+  runApp(const MyApp()); // Application
+}
+
+
+class MyApp extends StatelessWidget{
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return  MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.green,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+
+        ) ,
+
+        darkTheme: ThemeData(primarySwatch:Colors.amber),
+        color: Colors.blue,
+        debugShowCheckedModeBanner: false,
+        home:const HomeActivity()
+    );
+
+  }
+}
+
+
+class HomeActivity extends StatelessWidget{
+  const HomeActivity({super.key});
+
+
+  mySnackBar(message,context){
+    return ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message))
+    );
+  }
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+
+        title:  Text("Inventory App",style: TextStyle(
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),),
+
+//// AppBar with Custom Background Gradient
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Colors.green],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+
+        titleSpacing: 10,
+        toolbarHeight: 60,
+        toolbarOpacity: 1,
+        elevation: 5,
+        //centerTitle: true,
+        // brightness: Brightness.dark,
+        // backgroundColor: Colors.amber,
+        backgroundColor: Colors.transparent,
+        //// AppBar with Custom Action Widget and Icon
+        actions: [
+          IconButton(onPressed: (){mySnackBar("I am comments",context);}, icon: const Icon(Icons.comment)),
+          IconButton(onPressed: (){mySnackBar("I am search",context);}, icon: const Icon(Icons.search)),
+          IconButton(onPressed: (){mySnackBar("I am settings",context);}, icon: const Icon(Icons.settings)),
+          IconButton(onPressed: (){mySnackBar("I am email",context);}, icon: const Icon(Icons.email))
+
+        ],
+
+
+        //// PopupMenuButton
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.search),
+        //     onPressed: () {
+        //       // Search action
+        //     },
+        //   ),
+        //   PopupMenuButton(
+        //     itemBuilder: (context) => [
+        //       PopupMenuItem(
+        //         child: Text('Settings'),
+        //         value: 'settings',
+        //       ),
+        //       PopupMenuItem(
+        //         child: Text('Logout'),
+        //         value: 'logout',
+        //       ),
+        //     ],
+        //     onSelected: (value) {
+        //       // Handle menu item selection
+        //     },
+        //   ),
+        // ],
+        leading: IconButton(onPressed: (){}, icon: Icon(Icons.menu)),
+
+        //// AppBar with Search
+
+        // title: TextField(
+        //   decoration: InputDecoration(
+        //     hintText: 'Search...',
+        //     border: InputBorder.none,
+        //   ),
+        // ),
+
+        ////একটি কাস্টম টাইটেল widget এবং আইকন সহ AppBar তৈরি করতে title প্রপার্টি ব্যবহার করুন।
+        // title: Row(
+        //   children: [
+        //     Icon(Icons.home),
+        //     SizedBox(width: 10),
+        //     Text('My App'),
+        //   ],
+        // ),
+
+        //// AppBar with Custom Bottom Height
+        bottom: PreferredSize(
+
+          preferredSize: Size.fromHeight(50.0),
+          child: Container(
+            color: Colors.blue,
+            height: 50.0,
+            child: Center(
+              child: Text('Custom Bottom Widget'),
+            ),
+          ),
+        ),
+
+      ),
+
+
+
+
+    );
+
+  }
+
+
+
+}
