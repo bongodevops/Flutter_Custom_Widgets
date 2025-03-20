@@ -9,131 +9,105 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      title: 'Only Text Practice',
-      theme: ThemeData(
-        textTheme: TextTheme(
-          headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
-        ),
-      ),
-      home: HomeScreen(),
+    return const MaterialApp(
+      home: MyHome(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
 
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: const Color(0xFF10C419),
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        leading: const Icon(Icons.home, color: Colors.black54, size: 32,),
-        title: const Text('Home', style: TextStyle(
-            color: Colors.black
-        ),),
-        backgroundColor: Colors.yellow,
+        title: const Text(' Practice'),
+        backgroundColor: Colors.pink,
         elevation: 5,
-      ),
-      body: Column(
-        children: [
+        centerTitle: true,
 
-          Text(
-
-            'Hello,Bongo Devops.Flutter text details  Practice'.toUpperCase(),
-            //'Hello,Bongo Devops.Flutter text details  Practice'.toLowerCase(),
-            //textAlign: TextAlign.center,
-            //textAlign: TextAlign.start,
-            //textAlign: TextAlign.justify,
-            textAlign: TextAlign.center,
-            //textAlign: TextAlign.left,
-            //textAlign: TextAlign.right,
-            //textAlign: TextAlign.end,
-
-            maxLines: 3,
-            /// ফ্লাটারে টেক্সট স্কেলিং ব্যবহার করে ইউজারের ডিভাইসের টেক্সট সাইজ প্রেফারেন্স অনুযায়ী টেক্সট সাইজ পরিবর্তন করা যায়।
-            textScaler: TextScaler.linear(1.5),
-
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-              backgroundColor: Colors.amber,
-              // backgroundColor: Colors.grey,
-              decoration: TextDecoration.underline,
-              //decoration: TextDecoration.lineThrough,
-              //decoration: TextDecoration.overline,
-              //decoration: TextDecoration.none,
-              wordSpacing: 4,
-              letterSpacing: 5,
-              overflow: TextOverflow.ellipsis,
-              //overflow: TextOverflow.fade,
-              //overflow: TextOverflow.clip,
-              //overflow: TextOverflow.visible,
-
-            ),
-
-          ),
-
-          AnimatedDefaultTextStyle(
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 24,
-            ),
-            duration: Duration(seconds: 1),
-            child: Text('Hello, BongoDevops with Text animation'),
-          ),
-
-          /// টেক্সট শ্যাডো
-          Text(
-            'Hafizur Rahman Omar with shadow',
-            style: TextStyle(
-              fontSize: 24,
-              shadows: [
-                Shadow(
-                  color: Colors.black,
-                  offset: Offset(2, 2),
-                  blurRadius: 3,
-                ),
-              ],
-            ),
-
-          ),
-          ///  টেক্সট গ্রেডিয়েন্ট
-          ShaderMask(
-            shaderCallback: (bounds) {
-              return LinearGradient(
-                colors: [Colors.blue, Colors.red],
-              ).createShader(bounds);
+        leading: IconButton(
+            onPressed: () {
+              // Handle back button press
             },
+            icon: const Icon(Icons.arrow_back_ios_new)),
+
+
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Handle search button press
+            },
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {
+              // Handle more options button press
+            },
+          ),
+        ],
+
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: Padding(
+            padding: EdgeInsets.all(8),
             child: Text(
-              'Hello, Hafizur Rahman with Text Gradian',
-              style: TextStyle(fontSize: 24, color: Colors.red),
+              'Subtitle or additional details',
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
           ),
-          ///রিচ টেক্সট (RichText)
-
-          RichText(text: TextSpan(
-            text: 'Hello, Bong DevOps ',
-            style: TextStyle(color: Colors.black, fontSize: 20),
-            children: <TextSpan>[
-              TextSpan(
-                text: 'Flutter',
-                style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-              ),
-              TextSpan(
-                text: '!',
-                style: TextStyle(color: Colors.red, fontStyle: FontStyle.italic),
-              ),
-            ],
-          ),)
-        ],
+        ),
       ),
 
+
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Full Widget Practice',
+              selectionColor: Colors.red,
+              style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.amber),
+            ),
+            const SizedBox(height: 20),
+            const FlutterLogo(
+              size: 100,
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Handle button press
+              },
+              child: const Text(
+                'Press Me',
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star_border, color: Colors.yellow),
+                Icon(Icons.star_border, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
-
