@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          elevation: 8,
+          elevation: 7,
           title: Text('First App Main Code Flow'),
         ),
         body: Text('Hey I am Hafizur Rahman Omar. This is my new flutter app project'),
