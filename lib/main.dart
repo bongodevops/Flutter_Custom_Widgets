@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,7 +9,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeScreen());
+    return MaterialApp(
+      title: 'Text_RichText',
+      theme: ThemeData(
+        textTheme: TextTheme(
+          headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
+        ),
+      ),
+      home: HomeScreen(),
+    );
   }
 }
 
@@ -19,78 +28,110 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Column And Row Details')),
+      //backgroundColor: const Color(0xFF10C419),
+      appBar: AppBar(
+        leading: const Icon(Icons.home, color: Colors.black54, size: 32),
+        title: const Text('Home', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.blue,
+        elevation: 5,
+      ),
+      body: Column(
+        children: [
+          Text(
+            'Hello,Bongo Devops.Flutter text details  Practice'.toUpperCase(),
+            //'Hello,Bongo Devops.Flutter text details  Practice'.toLowerCase(),
+            //textAlign: TextAlign.center,
+            //textAlign: TextAlign.start,
+            //textAlign: TextAlign.justify,
+            textAlign: TextAlign.center,
 
-      body: SingleChildScrollView(
-        child: Column(
-          //mainAxisSize: MainAxisSize.min,
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          //mainAxisAlignment: MainAxisAlignment.end,
-          //mainAxisAlignment: MainAxisAlignment.start,
-          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //crossAxisAlignment: CrossAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
+            //textAlign: TextAlign.left,
+            //textAlign: TextAlign.right,
+            //textAlign: TextAlign.end,
+            maxLines: 3,
 
-          children: [
-            const Text('Column Start'),
-            const Text('Subahanallah'),
-            const Text('সুবহানাল্লাহ'),
-            const Text('Alhamdulillah'),
-            const Text('আলহামদুলিল্লাহ'),
-            const Text('Allahuakbar'),
-            const Text('আল্লাহু আকবার'),
-            const Text('La- Elaha Ellallah'),
+            /// ফ্লাটারে টেক্সট স্কেলিং ব্যবহার করে ইউজারের ডিভাইসের টেক্সট সাইজ প্রেফারেন্স অনুযায়ী টেক্সট সাইজ পরিবর্তন করা যায়।
+            textScaler: TextScaler.linear(1.5),
 
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              backgroundColor: Colors.amber,
+              // backgroundColor: Colors.grey,
+              decoration: TextDecoration.underline,
+              //decoration: TextDecoration.lineThrough,
+              //decoration: TextDecoration.overline,
+              //decoration: TextDecoration.none,
+              wordSpacing: 4,
+              letterSpacing: 5,
+              overflow: TextOverflow.ellipsis,
 
-              child: Row(
-                //mainAxisSize: MainAxisSize.min,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                //mainAxisAlignment: MainAxisAlignment.end,
-                //mainAxisAlignment: MainAxisAlignment.start,
-                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //crossAxisAlignment: CrossAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-
-                children: [
-                  const Text('Cloumn in Row Start'),
-                  const Text('Subahanallah'),
-                  const Text('সুবহানাল্লাহ'),
-                  const Text('Alhamdulillah'),
-                  const Text('আলহামদুলিল্লাহ'),
-                  const Text('Allahuakbar'),
-                  const Text('আল্লাহু আকবার'),
-
-                  Image.asset(
-                    'assets/images/bird.jpg',
-                    width: 200,
-                    height: 200,
-                  ),
-                ],
-              ),
+              //overflow: TextOverflow.fade,
+              //overflow: TextOverflow.clip,
+              //overflow: TextOverflow.visible,
             ),
+          ),
 
-            const Column(
-              //mainAxisSize: MainAxisSize.min,
-              //mainAxisSize: MainAxisSize.max,
-              children: [
-                Text('Cloumn in Cloumn Start'),
-                Text('Allahuakbar'),
-                Text('আল্লাহু আকবার'),
-                Text('La- Elaha Ellallah'),
-                Text('লা-ইলাহা ইল্লাল্লাহ'),
-                Text('Cloumn in Cloumn End'),
+          AnimatedDefaultTextStyle(
+            style: TextStyle(color: Colors.blue, fontSize: 24),
+            duration: Duration(seconds: 1),
+            child: Text('Hello, BongoDevops with Text animation'),
+          ),
+
+          /// টেক্সট শ্যাডো
+          Text(
+            'Hafizur Rahman Omar with shadow',
+            style: TextStyle(
+              fontSize: 24,
+              shadows: [
+                Shadow(
+                  color: Colors.black,
+                  offset: Offset(2, 2),
+                  blurRadius: 3,
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+
+          ///  টেক্সট গ্রেডিয়েন্ট
+          ShaderMask(
+            shaderCallback: (bounds) {
+              return LinearGradient(
+                colors: [Colors.blue, Colors.red],
+              ).createShader(bounds);
+            },
+            child: Text(
+              'Hello, Hafizur Rahman with Text Gradian',
+              style: TextStyle(fontSize: 24, color: Colors.red),
+            ),
+          ),
+
+          ///রিচ টেক্সট (RichText)
+          RichText(
+            text: TextSpan(
+              text: 'Hello, Bong DevOps ',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Flutter',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextSpan(
+                  text: 'This red and italic',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
