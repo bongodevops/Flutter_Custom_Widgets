@@ -9,99 +9,130 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: MyHome());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
+    );
   }
 }
 
-class MyHome extends StatefulWidget {
-  const MyHome({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
   @override
-  State<MyHome> createState() => _MyHomeState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _MyHomePageState extends State<MyHomePage> {
+  /// custom snack bar Create
+  mySnackBar(message, context) {
+    return ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  /// custom snack bar End
+
   @override
   Widget build(BuildContext context) {
+    ///Button custom design
+    ButtonStyle myButtonStyle = ElevatedButton.styleFrom(
+      //fixedSize: const Size(300, 80),
+      shadowColor: Colors.amber.shade200,
+      minimumSize: const Size(300, 50),
+      textStyle: const TextStyle(fontSize: 20.0),
+      //maximumSize: const Size(600, 150),
+      padding: const EdgeInsets.all(20.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      backgroundColor: Colors.indigo,
+      elevation: 7.0,
+      foregroundColor: Colors.white,
+      side: BorderSide(color: Colors.red, width: 1.0),
+      //alignment: Alignment.center,
+      //enabledMouseCursor: MouseCursor.defer,
+      //disabledForegroundColor: Colors.grey,
+    );
+
+    ///Button custom design End
+
     return Scaffold(
-      backgroundColor: Colors.blue,
-      appBar: AppBar(
-        title: const Text(' AppBar and Review '),
-        backgroundColor: Colors.pink,
-        elevation: 5,
-        centerTitle: true,
+      appBar: AppBar(title: const Text('Flutter All Button')),
 
-        leading: IconButton(
-          onPressed: () {
-            // Handle back button press
-          },
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
-
-        actions: [
-          IconButton(
-            onPressed: () {
-              // Handle search button press
-            },
-            icon: const Icon(Icons.search),
-          ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-              // Handle more options button press
-            },
-          ),
-        ],
-
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: Text(
-              'Subtitle or additional details',
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-          ),
-        ),
-      ),
-
+      ///Body Section Start
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Full Widget Practice',
-              selectionColor: Colors.red,
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.w700,
-                color: Colors.amber,
+            // Image Button Create
+            InkWell(
+              onTap: () {
+                // Handle button tap
+                print('Image button Click');
+              },
+              child: Image.asset(
+                'images/h.jpg',
+                height: 250,
+                width: double.infinity,
+                //fit: BoxFit.contain,
+                fit: BoxFit.fitHeight,
+                //repeat: ImageRepeat.repeat,
               ),
             ),
-            const SizedBox(height: 20),
-            const FlutterLogo(size: 100),
-            const SizedBox(height: 10),
+
+            const SizedBox(height: 20.0),
+
+            ///TextButton create start
+            TextButton(
+              onPressed: () {
+                mySnackBar("Text Button", context);
+              },
+              child: const Text("Text Button"),
+            ),
+
+            ///TextButton create End
+            ///ElevatedButton create start
+            const SizedBox(
+              //width: 0.0,
+              height: 30.0,
+              //child: Card(child: Text('Hello World!')),
+            ),
+
             ElevatedButton(
               onPressed: () {
-                // Handle button press
+                mySnackBar("Elevated  Button", context);
               },
-              child: const Text('Press Me'),
+              style: myButtonStyle,
+              child: const Text("Elevated Button"),
+
+              ///myButtonStyle is variable
             ),
-            const SizedBox(height: 20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.star, color: Colors.yellow),
-                Icon(Icons.star, color: Colors.yellow),
-                Icon(Icons.star, color: Colors.yellow),
-                Icon(Icons.star_border, color: Colors.yellow),
-                Icon(Icons.star_border, color: Colors.yellow),
-                Icon(Icons.star, color: Colors.yellow),
-              ],
+
+            ///ElevatedButton create End
+            ///OutlinedButton create Start
+            const SizedBox(
+              //width: 0.0,
+              height: 30.0,
+              //child: Card(child: Text('Hello World!')),
             ),
+
+            OutlinedButton(
+              onPressed: () {
+                mySnackBar("Outline  Button", context);
+              },
+              child: const Text("OutLine Button"),
+            ),
+            const SizedBox(
+              //width: 0.0,
+              height: 30.0,
+              //child: Card(child: Text('Hello World!')),
+            ),
+
+            ///OutlinedButton create End
           ],
         ),
       ),
+
+      ///Body Section End
     );
   }
 }
