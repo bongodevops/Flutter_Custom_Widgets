@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-main() {
-  runApp(const MyApp()); // Application
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,141 +9,97 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
-
-      darkTheme: ThemeData(primarySwatch: Colors.amber),
-      color: Colors.blue,
-      debugShowCheckedModeBanner: false,
-      home: const HomeActivity(),
-    );
+    return const MaterialApp(home: MyHome());
   }
 }
 
-class HomeActivity extends StatelessWidget {
-  const HomeActivity({super.key});
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
 
-  mySnackBar(message, context) {
-    return ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
 
+class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: Text(
-          "Inventory App",
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-
-        //// AppBar with Custom Background Gradient
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue, Colors.green],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-
-        titleSpacing: 10,
-        toolbarHeight: 60,
-        toolbarOpacity: 1,
+        title: const Text(' AppBar and Review '),
+        backgroundColor: Colors.pink,
         elevation: 5,
-        //centerTitle: true,
-        // brightness: Brightness.dark,
-        // backgroundColor: Colors.amber,
-        backgroundColor: Colors.transparent,
-        //// AppBar with Custom Action Widget and Icon
+        centerTitle: true,
+
+        leading: IconButton(
+          onPressed: () {
+            // Handle back button press
+          },
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
+
         actions: [
           IconButton(
             onPressed: () {
-              mySnackBar("I am comments", context);
-            },
-            icon: const Icon(Icons.comment),
-          ),
-          IconButton(
-            onPressed: () {
-              mySnackBar("I am search", context);
+              // Handle search button press
             },
             icon: const Icon(Icons.search),
           ),
           IconButton(
+            icon: const Icon(Icons.more_vert),
             onPressed: () {
-              mySnackBar("I am settings", context);
+              // Handle more options button press
             },
-            icon: const Icon(Icons.settings),
-          ),
-          IconButton(
-            onPressed: () {
-              mySnackBar("I am email", context);
-            },
-            icon: const Icon(Icons.email),
           ),
         ],
 
-        //// PopupMenuButton
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.search),
-        //     onPressed: () {
-        //       // Search action
-        //     },
-        //   ),
-        //   PopupMenuButton(
-        //     itemBuilder: (context) => [
-        //       PopupMenuItem(
-        //         child: Text('Settings'),
-        //         value: 'settings',
-        //       ),
-        //       PopupMenuItem(
-        //         child: Text('Logout'),
-        //         value: 'logout',
-        //       ),
-        //     ],
-        //     onSelected: (value) {
-        //       // Handle menu item selection
-        //     },
-        //   ),
-        // ],
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-
-        //// AppBar with Search
-
-        // title: TextField(
-        //   decoration: InputDecoration(
-        //     hintText: 'Search...',
-        //     border: InputBorder.none,
-        //   ),
-        // ),
-
-        ////একটি কাস্টম টাইটেল widget এবং আইকন সহ AppBar তৈরি করতে title প্রপার্টি ব্যবহার করুন।
-        // title: Row(
-        //   children: [
-        //     Icon(Icons.home),
-        //     SizedBox(width: 10),
-        //     Text('My App'),
-        //   ],
-        // ),
-
-        //// AppBar with Custom Bottom Height
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
-          child: Container(
-            color: Colors.blue,
-            height: 50.0,
-            child: Center(child: Text('Custom Bottom Widget')),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Text(
+              'Subtitle or additional details',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
           ),
+        ),
+      ),
+
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Full Widget Practice',
+              selectionColor: Colors.red,
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.w700,
+                color: Colors.amber,
+              ),
+            ),
+            const SizedBox(height: 20),
+            const FlutterLogo(size: 100),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Handle button press
+              },
+              child: const Text('Press Me'),
+            ),
+            const SizedBox(height: 20),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+                Icon(Icons.star_border, color: Colors.yellow),
+                Icon(Icons.star_border, color: Colors.yellow),
+                Icon(Icons.star, color: Colors.yellow),
+              ],
+            ),
+          ],
         ),
       ),
     );
