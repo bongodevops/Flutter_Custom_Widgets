@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+main() {
+  runApp(const MyApp()); // Application
 }
 
 class MyApp extends StatelessWidget {
@@ -10,48 +10,141 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Text_RichText',
       theme: ThemeData(
-        textTheme: TextTheme(
-          headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
-        ),
+        primarySwatch: Colors.green,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      home: HomeScreen(),
+
+      darkTheme: ThemeData(primarySwatch: Colors.amber),
+      color: Colors.blue,
+      debugShowCheckedModeBanner: false,
+      home: const HomeActivity(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeActivity extends StatelessWidget {
+  const HomeActivity({super.key});
+
+  mySnackBar(message, context) {
+    return ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: const Color(0xFF10C419),
       appBar: AppBar(
-        leading: const Icon(Icons.home, color: Colors.black54, size: 32),
-        title: const Text(
-          'Master Branch',
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          "Inventory App",
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
-        backgroundColor: Colors.blue,
-        elevation: 5,
-      ),
-      body: Column(
-        children: [
-          Text(
-            'This is Master Branch'.toUpperCase(),
-            textAlign: TextAlign.center,
-            maxLines: 3,
-            style: const TextStyle(
-              fontSize: 32,
-              wordSpacing: 4,
-              letterSpacing: 5,
-              overflow: TextOverflow.ellipsis,
+
+        //// AppBar with Custom Background Gradient
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Colors.green],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
+        ),
+
+        titleSpacing: 10,
+        toolbarHeight: 60,
+        toolbarOpacity: 1,
+        elevation: 5,
+        //centerTitle: true,
+        // brightness: Brightness.dark,
+        // backgroundColor: Colors.amber,
+        backgroundColor: Colors.transparent,
+        //// AppBar with Custom Action Widget and Icon
+        actions: [
+          IconButton(
+            onPressed: () {
+              mySnackBar("I am comments", context);
+            },
+            icon: const Icon(Icons.comment),
+          ),
+          IconButton(
+            onPressed: () {
+              mySnackBar("I am search", context);
+            },
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {
+              mySnackBar("I am settings", context);
+            },
+            icon: const Icon(Icons.settings),
+          ),
+          IconButton(
+            onPressed: () {
+              mySnackBar("I am email", context);
+            },
+            icon: const Icon(Icons.email),
+          ),
         ],
+
+        //// PopupMenuButton
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.search),
+        //     onPressed: () {
+        //       // Search action
+        //     },
+        //   ),
+        //   PopupMenuButton(
+        //     itemBuilder: (context) => [
+        //       PopupMenuItem(
+        //         child: Text('Settings'),
+        //         value: 'settings',
+        //       ),
+        //       PopupMenuItem(
+        //         child: Text('Logout'),
+        //         value: 'logout',
+        //       ),
+        //     ],
+        //     onSelected: (value) {
+        //       // Handle menu item selection
+        //     },
+        //   ),
+        // ],
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+
+        //// AppBar with Search
+
+        // title: TextField(
+        //   decoration: InputDecoration(
+        //     hintText: 'Search...',
+        //     border: InputBorder.none,
+        //   ),
+        // ),
+
+        ////একটি কাস্টম টাইটেল widget এবং আইকন সহ AppBar তৈরি করতে title প্রপার্টি ব্যবহার করুন।
+        // title: Row(
+        //   children: [
+        //     Icon(Icons.home),
+        //     SizedBox(width: 10),
+        //     Text('My App'),
+        //   ],
+        // ),
+
+        //// AppBar with Custom Bottom Height
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(50.0),
+          child: Container(
+            color: Colors.blue,
+            height: 50.0,
+            child: Center(child: Text('Custom Bottom Widget')),
+          ),
+        ),
       ),
     );
   }
