@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 class HomeActivity extends StatelessWidget {
   const HomeActivity({super.key});
 
-  MySnackBar(message, context) {
+  mySnackBar(message, context) {
     return ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
@@ -31,97 +31,175 @@ class HomeActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Bottom Navigation Bar")),
-
-      /*
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            MySnackBar("I am menu", context);
-          },
-        ),
-
-        //
-        // centerTitle: true,
         title: const Text("Inventory App"),
         titleSpacing: 10,
-        toolbarHeight: 70,
+        toolbarHeight: 60,
         toolbarOpacity: 1,
-        elevation: 3,
+        elevation: 0,
         backgroundColor: Colors.green,
         actions: [
           IconButton(
             onPressed: () {
-              MySnackBar("I am comments", context);
+              mySnackBar("I am comments", context);
             },
-            icon: const Icon(Icons.comment),
+            icon: Icon(Icons.comment),
           ),
           IconButton(
             onPressed: () {
-              MySnackBar("I am search", context);
+              mySnackBar("I am search", context);
             },
-            icon: const Icon(Icons.search),
+            icon: Icon(Icons.search),
           ),
           IconButton(
             onPressed: () {
-              MySnackBar("I am settings", context);
+              mySnackBar("I am settings", context);
             },
-            icon: const Icon(Icons.settings),
+            icon: Icon(Icons.settings),
           ),
           IconButton(
             onPressed: () {
-              MySnackBar("I am email", context);
+              mySnackBar("I am email", context);
             },
-            icon: const Icon(Icons.email),
+            icon: Icon(Icons.email),
           ),
         ],
       ),
-      */
+
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         backgroundColor: Colors.green,
         onPressed: () {
-          MySnackBar("I am floating action button", context);
+          mySnackBar("I am floating action button", context);
         },
-        child: const Icon(Icons.add, color: Colors.white, size: 35),
+        child: const Icon(Icons.add),
       ),
 
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedFontSize: 25,
-        unselectedFontSize: 16,
-        selectedItemColor: Colors.green,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.green,
-        ),
-        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w300),
-        selectedIconTheme: IconThemeData(
-          size: 35,
-          color: Colors.yellow.shade700,
-        ),
-        elevation: 10,
-        iconSize: 25,
-        backgroundColor: Colors.indigo.shade50,
-        unselectedItemColor: Colors.grey,
-        items: [
+        currentIndex: 2,
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: "Contact"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
         onTap: (int index) {
           if (index == 0) {
-            MySnackBar("I am home bottom menu", context);
+            mySnackBar("I am home bottom menu", context);
           }
           if (index == 1) {
-            MySnackBar("I am contact bottom menu", context);
+            mySnackBar("I am contact bottom menu", context);
           }
           if (index == 2) {
-            MySnackBar("I am profile bottom menu", context);
+            mySnackBar("I am profile bottom menu", context);
           }
         },
       ),
+
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              padding: const EdgeInsets.all(0),
+              child: UserAccountsDrawerHeader(
+                decoration: const BoxDecoration(color: Colors.white),
+                accountName: const Text(
+                  "Hafiz Rahman",
+                  style: TextStyle(color: Colors.black),
+                ),
+                accountEmail: const Text(
+                  "info@hafiz.com",
+                  style: TextStyle(color: Colors.black),
+                ),
+                currentAccountPicture: Image.network(
+                  "https://avatars.githubusercontent.com/u/80614973?v=4",
+                ),
+                onDetailsPressed: () {
+                  mySnackBar("This is profile", context);
+                },
+              ),
+            ),
+
+            ListTile(
+              iconColor: Colors.orange,
+              textColor: Colors.indigo,
+              leading: const Icon(Icons.home),
+              title: const Text("Home"),
+              onTap: () {
+                mySnackBar("I am home", context);
+              },
+            ),
+            ListTile(
+              selected: true,
+              selectedTileColor: Colors.yellow,
+              selectedColor: Colors.red,
+              leading: const Icon(Icons.email),
+              title: const Text("Email"),
+              onTap: () {
+                mySnackBar("I am email", context);
+              },
+            ),
+            ListTile(
+              titleTextStyle: TextStyle(color: Colors.red, fontSize: 20),
+              leading: const Icon(Icons.phone),
+              title: const Text("Phone"),
+              onTap: () {
+                mySnackBar("I am phone", context);
+              },
+            ),
+          ],
+        ),
+      ),
+
+      /*
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              padding: const EdgeInsets.all(0),
+              child: UserAccountsDrawerHeader(
+                decoration: const BoxDecoration(color: Colors.white),
+                accountName: const Text(
+                  "Hafiz Rahman",
+                  style: TextStyle(color: Colors.black),
+                ),
+                accountEmail: const Text(
+                  "info@hafiz.com",
+                  style: TextStyle(color: Colors.black),
+                ),
+                currentAccountPicture: Image.network(
+                  "https://avatars.githubusercontent.com/u/80614973?v=4",
+                ),
+                onDetailsPressed: () {
+                  MySnackBar("This is profile", context);
+                },
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text("Home"),
+              onTap: () {
+                MySnackBar("I am home", context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.email),
+              title: const Text("Email"),
+              onTap: () {
+                MySnackBar("I am email", context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.phone),
+              title: const Text("Phone"),
+              onTap: () {
+                MySnackBar("I am phone", context);
+              },
+            ),
+          ],
+        ),
+      ),
+
+       */
     );
   }
 }
