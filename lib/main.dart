@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+main() {
+  runApp(const MyApp()); // Application
 }
 
 class MyApp extends StatelessWidget {
@@ -9,130 +9,119 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.green),
+      darkTheme: ThemeData(primarySwatch: Colors.amber),
+      color: Colors.blue,
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: const HomeActivity(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class HomeActivity extends StatelessWidget {
+  const HomeActivity({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  /// custom snack bar Create
-  mySnackBar(message, context) {
+  MySnackBar(message, context) {
     return ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
   }
 
-  /// custom snack bar End
-
   @override
   Widget build(BuildContext context) {
-    ///Button custom design
-    ButtonStyle myButtonStyle = ElevatedButton.styleFrom(
-      //fixedSize: const Size(300, 80),
-      shadowColor: Colors.amber.shade200,
-      minimumSize: const Size(300, 50),
-      textStyle: const TextStyle(fontSize: 20.0),
-      //maximumSize: const Size(600, 150),
-      padding: const EdgeInsets.all(20.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      backgroundColor: Colors.indigo,
-      elevation: 7.0,
-      foregroundColor: Colors.white,
-      side: BorderSide(color: Colors.red, width: 1.0),
-      //alignment: Alignment.center,
-      //enabledMouseCursor: MouseCursor.defer,
-      //disabledForegroundColor: Colors.grey,
-    );
-
-    ///Button custom design End
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter All Button')),
+      appBar: AppBar(title: const Text("Bottom Navigation Bar")),
 
-      ///Body Section Start
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Image Button Create
-            InkWell(
-              onTap: () {
-                // Handle button tap
-                print('Image button Click');
-              },
-              child: Image.asset(
-                'images/h.jpg',
-                height: 250,
-                width: double.infinity,
-                //fit: BoxFit.contain,
-                fit: BoxFit.fitHeight,
-                //repeat: ImageRepeat.repeat,
-              ),
-            ),
-
-            const SizedBox(height: 20.0),
-
-            ///TextButton create start
-            TextButton(
-              onPressed: () {
-                mySnackBar("Text Button", context);
-              },
-              child: const Text("Text Button"),
-            ),
-
-            ///TextButton create End
-            ///ElevatedButton create start
-            const SizedBox(
-              //width: 0.0,
-              height: 30.0,
-              //child: Card(child: Text('Hello World!')),
-            ),
-
-            ElevatedButton(
-              onPressed: () {
-                mySnackBar("Elevated  Button", context);
-              },
-              style: myButtonStyle,
-              child: const Text("Elevated Button"),
-
-              ///myButtonStyle is variable
-            ),
-
-            ///ElevatedButton create End
-            ///OutlinedButton create Start
-            const SizedBox(
-              //width: 0.0,
-              height: 30.0,
-              //child: Card(child: Text('Hello World!')),
-            ),
-
-            OutlinedButton(
-              onPressed: () {
-                mySnackBar("Outline  Button", context);
-              },
-              child: const Text("OutLine Button"),
-            ),
-            const SizedBox(
-              //width: 0.0,
-              height: 30.0,
-              //child: Card(child: Text('Hello World!')),
-            ),
-
-            ///OutlinedButton create End
-          ],
+      /*
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {
+            MySnackBar("I am menu", context);
+          },
         ),
+
+        //
+        // centerTitle: true,
+        title: const Text("Inventory App"),
+        titleSpacing: 10,
+        toolbarHeight: 70,
+        toolbarOpacity: 1,
+        elevation: 3,
+        backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            onPressed: () {
+              MySnackBar("I am comments", context);
+            },
+            icon: const Icon(Icons.comment),
+          ),
+          IconButton(
+            onPressed: () {
+              MySnackBar("I am search", context);
+            },
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
+            onPressed: () {
+              MySnackBar("I am settings", context);
+            },
+            icon: const Icon(Icons.settings),
+          ),
+          IconButton(
+            onPressed: () {
+              MySnackBar("I am email", context);
+            },
+            icon: const Icon(Icons.email),
+          ),
+        ],
+      ),
+      */
+      floatingActionButton: FloatingActionButton(
+        elevation: 10,
+        backgroundColor: Colors.green,
+        onPressed: () {
+          MySnackBar("I am floating action button", context);
+        },
+        child: const Icon(Icons.add, color: Colors.white, size: 35),
       ),
 
-      ///Body Section End
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        selectedFontSize: 25,
+        unselectedFontSize: 16,
+        selectedItemColor: Colors.green,
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.green,
+        ),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w300),
+        selectedIconTheme: IconThemeData(
+          size: 35,
+          color: Colors.yellow.shade700,
+        ),
+        elevation: 10,
+        iconSize: 25,
+        backgroundColor: Colors.indigo.shade50,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Contact"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+        onTap: (int index) {
+          if (index == 0) {
+            MySnackBar("I am home bottom menu", context);
+          }
+          if (index == 1) {
+            MySnackBar("I am contact bottom menu", context);
+          }
+          if (index == 2) {
+            MySnackBar("I am profile bottom menu", context);
+          }
+        },
+      ),
     );
   }
 }
