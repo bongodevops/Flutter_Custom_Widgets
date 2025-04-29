@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-main() {
-  runApp(const MyApp()); // Application
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,197 +9,60 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.green),
-      darkTheme: ThemeData(primarySwatch: Colors.amber),
-      color: Colors.blue,
-      debugShowCheckedModeBanner: false,
-      home: const HomeActivity(),
-    );
+    return const MaterialApp(home: HomePage());
   }
 }
 
-class HomeActivity extends StatelessWidget {
-  const HomeActivity({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
-  mySnackBar(message, context) {
-    return ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Inventory App"),
-        titleSpacing: 10,
-        toolbarHeight: 60,
-        toolbarOpacity: 1,
-        elevation: 0,
-        backgroundColor: Colors.green,
-        actions: [
-          IconButton(
-            onPressed: () {
-              mySnackBar("I am comments", context);
-            },
-            icon: Icon(Icons.comment),
-          ),
-          IconButton(
-            onPressed: () {
-              mySnackBar("I am search", context);
-            },
-            icon: Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: () {
-              mySnackBar("I am settings", context);
-            },
-            icon: Icon(Icons.settings),
-          ),
-          IconButton(
-            onPressed: () {
-              mySnackBar("I am email", context);
-            },
-            icon: Icon(Icons.email),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text("Flutter Container Design")),
+      body: Container(
+        width: 400,
+        height: 300,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
+        //padding: const EdgeInsets.all(32),
+        // padding: const EdgeInsets.fromLTRB(32, 10, 32, 10),
+        // padding: EdgeInsets.zero,
+        // padding: const EdgeInsets.only(left: 0.0,top: 0.0,right: 0.0,bottom: 30),
+        /// Same to Padding
+        margin: const EdgeInsets.only(left: 20, right: 20),
+        //color: Colors.amber,
 
-      floatingActionButton: FloatingActionButton(
-        elevation: 10,
-        backgroundColor: Colors.green,
-        onPressed: () {
-          mySnackBar("I am floating action button", context);
-        },
-        child: const Icon(Icons.add),
-      ),
+        /// Other Option Available
+        alignment: Alignment.center,
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: "Contact"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
-        onTap: (int index) {
-          if (index == 0) {
-            mySnackBar("I am home bottom menu", context);
-          }
-          if (index == 1) {
-            mySnackBar("I am contact bottom menu", context);
-          }
-          if (index == 2) {
-            mySnackBar("I am profile bottom menu", context);
-          }
-        },
-      ),
+        decoration: BoxDecoration(
+          /// Other Option Available
+          // borderRadius: BorderRadius.circular(10),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(6),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(12),
+          ),
 
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              padding: const EdgeInsets.all(0),
-              child: UserAccountsDrawerHeader(
-                decoration: const BoxDecoration(color: Colors.white),
-                accountName: const Text(
-                  "Hafiz Rahman",
-                  style: TextStyle(color: Colors.black),
-                ),
-                accountEmail: const Text(
-                  "info@hafiz.com",
-                  style: TextStyle(color: Colors.black),
-                ),
-                currentAccountPicture: Image.network(
-                  "https://avatars.githubusercontent.com/u/80614973?v=4",
-                ),
-                onDetailsPressed: () {
-                  mySnackBar("This is profile", context);
-                },
-              ),
-            ),
+          /// Other Option Available
+          border: Border.all(
+            color: Colors.red,
+            width: 10,
+            //strokeAlign: 10.0,
+            style: BorderStyle.solid,
+          ),
 
-            ListTile(
-              iconColor: Colors.orange,
-              textColor: Colors.indigo,
-              leading: const Icon(Icons.home),
-              title: const Text("Home"),
-              onTap: () {
-                mySnackBar("I am home", context);
-              },
-            ),
-            ListTile(
-              selected: true,
-              selectedTileColor: Colors.yellow,
-              selectedColor: Colors.red,
-              leading: const Icon(Icons.email),
-              title: const Text("Email"),
-              onTap: () {
-                mySnackBar("I am email", context);
-              },
-            ),
-            ListTile(
-              titleTextStyle: TextStyle(color: Colors.red, fontSize: 20),
-              leading: const Icon(Icons.phone),
-              title: const Text("Phone"),
-              onTap: () {
-                mySnackBar("I am phone", context);
-              },
-            ),
-          ],
+          /// if shape used than border radius disable
+          //shape: BoxShape.circle,
         ),
+        child: const Column(children: [Text("This Is Container")]),
       ),
-
-      /*
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              padding: const EdgeInsets.all(0),
-              child: UserAccountsDrawerHeader(
-                decoration: const BoxDecoration(color: Colors.white),
-                accountName: const Text(
-                  "Hafiz Rahman",
-                  style: TextStyle(color: Colors.black),
-                ),
-                accountEmail: const Text(
-                  "info@hafiz.com",
-                  style: TextStyle(color: Colors.black),
-                ),
-                currentAccountPicture: Image.network(
-                  "https://avatars.githubusercontent.com/u/80614973?v=4",
-                ),
-                onDetailsPressed: () {
-                  MySnackBar("This is profile", context);
-                },
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text("Home"),
-              onTap: () {
-                MySnackBar("I am home", context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.email),
-              title: const Text("Email"),
-              onTap: () {
-                MySnackBar("I am email", context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.phone),
-              title: const Text("Phone"),
-              onTap: () {
-                MySnackBar("I am phone", context);
-              },
-            ),
-          ],
-        ),
-      ),
-
-       */
     );
   }
 }
