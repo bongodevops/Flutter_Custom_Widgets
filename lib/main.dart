@@ -49,7 +49,8 @@ class HomeScreen extends StatelessWidget {
             //textAlign: TextAlign.right,
             //textAlign: TextAlign.end,
             maxLines: 3,
-
+            //softWrap: false,
+            //overflow: TextOverflow.ellipsis,
             /// ফ্লাটারে টেক্সট স্কেলিং ব্যবহার করে ইউজারের ডিভাইসের টেক্সট সাইজ প্রেফারেন্স অনুযায়ী টেক্সট সাইজ পরিবর্তন করা যায়।
             textScaler: TextScaler.linear(1.5),
 
@@ -67,7 +68,6 @@ class HomeScreen extends StatelessWidget {
               wordSpacing: 4,
               letterSpacing: 5,
               overflow: TextOverflow.ellipsis,
-
               //overflow: TextOverflow.fade,
               //overflow: TextOverflow.clip,
               //overflow: TextOverflow.visible,
