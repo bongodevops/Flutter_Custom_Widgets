@@ -38,9 +38,16 @@ class _HomePageState extends State<HomePage> {
         //color: Colors.amber,
 
         /// Other Option Available
-        alignment: Alignment.center,
+        alignment: Alignment.topLeft,
 
         decoration: BoxDecoration(
+          //backgroundBlendMode: BlendMode.multiply,
+          gradient: LinearGradient(
+            colors: [Colors.red, Colors.green, Colors.blue, Colors.yellow],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topLeft,
+          ),
+
           /// Other Option Available
           // borderRadius: BorderRadius.circular(10),
           borderRadius: const BorderRadius.only(
@@ -60,8 +67,30 @@ class _HomePageState extends State<HomePage> {
 
           /// if shape used than border radius disable
           //shape: BoxShape.circle,
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 50,
+              spreadRadius: 10,
+              offset: Offset(2, 40),
+            ),
+          ],
+          color: Colors.orange,
         ),
-        child: const Column(children: [Text("This Is Container")]),
+        child: const Column(
+          children: [
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+            Text("This Is Container"),
+          ],
+        ),
       ),
     );
   }
