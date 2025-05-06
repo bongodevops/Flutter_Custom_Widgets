@@ -20,31 +20,21 @@ class HomeActivity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Image.network(
-                'https://avatars.githubusercontent.com/u/80614973?v=4',
-              ),
-              //width:height(ex: Width 16 inc than height: 9 inch
+            Container(color: Colors.green, height: 400, width: 400),
+
+            Positioned(
+              left: 100,
+              top: 200,
+              child: Container(color: Colors.red, height: 125, width: 125),
             ),
-            const SizedBox(
-              height: 20,
-            ), // Adding spacing between the two AspectRatio widgets
-            AspectRatio(
-              aspectRatio: 16 / 3,
-              child: Image.network(
-                'https://avatars.githubusercontent.com/u/80614973?v=4',
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ), // Adding spacing between the two AspectRatio widgets
-            AspectRatio(
-              aspectRatio: 16 / 12,
-              child: Image.network(
-                'https://avatars.githubusercontent.com/u/80614973?v=4',
+            Positioned.fill(
+              child: Align(
+                // Other Option available
+                alignment: Alignment.bottomRight,
+                child: Container(width: 100, height: 100, color: Colors.purple),
               ),
             ),
           ],
