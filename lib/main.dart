@@ -1,67 +1,54 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+main() {
+  runApp(const MyApp()); // Application
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: MyHomePage());
+    return const MaterialApp(home: HomeActivity());
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class HomeActivity extends StatelessWidget {
+  const HomeActivity({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Card")),
-      body: Column(
-        children: [
-          Card(
-            color: Colors.blue,
-            elevation: 7.0,
-            child: ListTile(
-              title: Text(" This is My Card Title"),
-              subtitle: Text("Tis is My Subtitle"),
-              leading: Icon(
-                Icons.favorite_border,
-                color: Colors.red,
-                size: 50.0,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Image.network(
+                'https://avatars.githubusercontent.com/u/80614973?v=4',
               ),
-              trailing: Icon(Icons.arrow_forward_ios, color: Colors.yellow),
+              //width:height(ex: Width 16 inc than height: 9 inch
             ),
-          ),
-          SizedBox(height: 20),
-          SizedBox(
-            height: 200,
-            width: 300,
-            child: Card(
-              color: Colors.orange,
-              elevation: 7.0,
-              child: ListTile(
-                title: Text(" This is My Card Title"),
-                subtitle: Text("Tis is My Subtitle"),
-                leading: Icon(Icons.add_call, color: Colors.white, size: 50.0),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                  size: 50.0,
-                ),
+            const SizedBox(
+              height: 20,
+            ), // Adding spacing between the two AspectRatio widgets
+            AspectRatio(
+              aspectRatio: 16 / 3,
+              child: Image.network(
+                'https://avatars.githubusercontent.com/u/80614973?v=4',
               ),
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 20,
+            ), // Adding spacing between the two AspectRatio widgets
+            AspectRatio(
+              aspectRatio: 16 / 12,
+              child: Image.network(
+                'https://avatars.githubusercontent.com/u/80614973?v=4',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
