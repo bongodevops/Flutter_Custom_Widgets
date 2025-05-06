@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-main() {
-  runApp(const MyApp()); // Application
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,96 +9,56 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeActivity());
+    // TODO: implement build
+    return const MaterialApp(title: 'Image Practice', home: Images());
   }
 }
 
-class HomeActivity extends StatelessWidget {
-  const HomeActivity({super.key});
+class Images extends StatelessWidget {
+  const Images({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFfff23E),
+        leading: Icon(
+          Icons.image_search,
+          color: Colors.purpleAccent.shade700,
+          size: 50,
+        ),
+        elevation: 10,
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            flex: 3,
-            child: Row(
-              children: [
-                Expanded(flex: 1, child: Container(color: Colors.amber)),
-                Expanded(flex: 3, child: Container(color: Colors.green)),
-                Expanded(flex: 1, child: Container(color: Colors.red)),
-              ],
-            ),
+          Image.asset(
+            "assets/images/h.jpg",
+            height: 250,
+            width: double.infinity,
+            //fit: BoxFit.contain,
+            fit: BoxFit.cover,
+
+            //fit: BoxFit.fitHeight,
+            //fit: BoxFit.fitWidth,
+            // fit: BoxFit.scaleDown,
+            //fit: BoxFit.fill,
+            //repeat: ImageRepeat.repeat,
+            //repeat: ImageRepeat.noRepeat,
+            //repeat: ImageRepeat.repeatX,
+            //repeat: ImageRepeat.repeatY,
+            //color: Colors.green,
+            //color: Colors.transparent, /// Image totally Vanish.
+            //colorBlendMode:BlendMode.colorDodge,
+            //colorBlendMode:BlendMode.colorBurn,
+            //colorBlendMode:BlendMode.luminosity,
           ),
-          const SizedBox(height: 20),
-          Expanded(
-            flex: 2,
-            child: Row(
-              children: [
-                Expanded(flex: 1, child: Container(color: Colors.red)),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    children: [
-                      Expanded(flex: 1, child: Container(color: Colors.black)),
-                      Expanded(flex: 3, child: Container(color: Colors.amber)),
-                      Expanded(flex: 2, child: Container(color: Colors.orange)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(flex: 3, child: Container(color: Colors.green)),
-          const SizedBox(height: 20),
-          Expanded(
-            flex: 1,
-            child: Row(
-              children: [
-                Expanded(child: Container(color: Colors.red)),
-                Expanded(
-                  flex: 3,
-                  child: Container(color: const Color(0xfff1eae9)),
-                ),
-                Expanded(child: Container(color: Colors.red)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            flex: 2,
-            child: Container(
-              height: 300,
-              color: Colors.blue,
-              alignment: Alignment.center,
-              child: const Text("This is Container-01"),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            flex: 4,
-            child: Container(
-              height: 300,
-              color: Colors.grey,
-              alignment: Alignment.center,
-              child: const Text(
-                "Expanded always Total area equal distribution-02",
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            flex: 2,
-            child: Container(
-              height: 300,
-              color: Colors.red,
-              alignment: Alignment.center,
-              child: const Text("This is Container -03"),
-            ),
+          const SizedBox(height: 50),
+          Image.network(
+            color: Colors.yellowAccent,
+            colorBlendMode: BlendMode.softLight,
+
+            'https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/09/instagram-image-size.jpg',
           ),
         ],
       ),
