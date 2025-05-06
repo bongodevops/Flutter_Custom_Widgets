@@ -1,87 +1,63 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
+
+String imageLink = "https://avatars.githubusercontent.com/u/80614973?v=4 ";
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeScreen());
+    return const MaterialApp(home: MyHomePage());
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    // print(MediaQuery.of(context).orientation);
-    // print(MediaQuery.of(context).size.height);
-    // print(MediaQuery.of(context).size.width);
-    // print(MediaQuery.of(context).size.aspectRatio);
-    // print(MediaQuery.of(context).size.flipped);
-    // print(MediaQuery.of(context).size.longestSide);
-    // print(MediaQuery.of(context).size.shortestSide);
-    // print(MediaQuery.of(context).displayFeatures);
-    // print(MediaQuery.of(context).devicePixelRatio);
-    //double myHeight = MediaQuery.of(context).size.height;
-    // double myWidth = MediaQuery.of(context).size.width;
-    //double myWidth = MediaQuery.sizeOf(context).width;
-    print(MediaQuery.sizeOf(context));
-    print(MediaQuery.orientationOf(context));
-    print(MediaQuery.devicePixelRatioOf(context));
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Warp,MediaQuery')),
-      body: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Scrollbar(
-            thickness: 7.0,
-            radius: Radius.circular(10.0),
-            interactive: true,
-            trackVisibility: true,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Text(
-                    "It is a long established fact that a reader will be distracted by the readable content",
-                  ),
-                  Text("Hafizur Rhaman Omar"),
-                  Text("Hafizur Rhaman Omar"),
-                  Text("Hafizur Rhaman Omar"),
-                  Text(
-                    "It is a long established fact that a reader will be distracted by the readable content",
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 50.0),
-          Wrap(
-            // crossAxisAlignment: WrapCrossAlignment.center,
-            //alignment: WrapAlignment.start,
-            //runAlignment: WrapAlignment.start,
-            spacing: 10,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Dynamic Height and Width "),
+      ),
+      body: Center(
+        child: Container(
+          width: myWidth,
+          height: myHeight,
+          color: Colors.grey,
+          child: (Column(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Hafizur Rhaman Omar,Hafizur Rhaman Omar Hafizur Rhaman Omar",
+              Image.network(
+                width: myWidth,
+                height: myHeight / 2,
+                imageLink,
+                alignment: Alignment.center,
               ),
-              Text(
-                "Hafiz Rhaman Omar Hafiz Rhaman OmarHafiz Rhaman OmarHafiz Rhaman Omar Hafiz Rhaman Omar",
+              const Text("Hafizur Rahman Omar"),
+              Image.asset(
+                'assets/images/bird.jpg',
+                //'assets/images/bird.jpg',
+                width: myWidth / 2,
+                height: myHeight / 3,
               ),
-              Text("Hafizur Rhaman Omar"),
-              Text("Hafizur Rhaman Omar"),
-              Text("Hafizur Rhaman Omar"),
             ],
-          ),
-        ],
+          )),
+        ),
       ),
     );
   }
