@@ -1,64 +1,85 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return const MaterialApp(title: 'Image Practice', home: Images());
+    return const MaterialApp(home: HomeScreen());
   }
 }
 
-class Images extends StatelessWidget {
-  const Images({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    // print(MediaQuery.of(context).orientation);
+    // print(MediaQuery.of(context).size.height);
+    // print(MediaQuery.of(context).size.width);
+    // print(MediaQuery.of(context).size.aspectRatio);
+    // print(MediaQuery.of(context).size.flipped);
+    // print(MediaQuery.of(context).size.longestSide);
+    // print(MediaQuery.of(context).size.shortestSide);
+    // print(MediaQuery.of(context).displayFeatures);
+    // print(MediaQuery.of(context).devicePixelRatio);
+    //double myHeight = MediaQuery.of(context).size.height;
+    // double myWidth = MediaQuery.of(context).size.width;
+    //double myWidth = MediaQuery.sizeOf(context).width;
+    print(MediaQuery.sizeOf(context));
+    print(MediaQuery.orientationOf(context));
+    print(MediaQuery.devicePixelRatioOf(context));
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFfff23E),
-        leading: Icon(
-          Icons.image_search,
-          color: Colors.purpleAccent.shade700,
-          size: 50,
-        ),
-        elevation: 10,
-      ),
-      body: Column(
+      appBar: AppBar(title: const Text('Warp,MediaQuery')),
+      body: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            "assets/images/h.jpg",
-            height: 250,
-            width: double.infinity,
-            //fit: BoxFit.contain,
-            fit: BoxFit.cover,
-
-            //fit: BoxFit.fitHeight,
-            //fit: BoxFit.fitWidth,
-            // fit: BoxFit.scaleDown,
-            //fit: BoxFit.fill,
-            //repeat: ImageRepeat.repeat,
-            //repeat: ImageRepeat.noRepeat,
-            //repeat: ImageRepeat.repeatX,
-            //repeat: ImageRepeat.repeatY,
-            //color: Colors.green,
-            //color: Colors.transparent, /// Image totally Vanish.
-            //colorBlendMode:BlendMode.colorDodge,
-            //colorBlendMode:BlendMode.colorBurn,
-            //colorBlendMode:BlendMode.luminosity,
+          Scrollbar(
+            thickness: 7.0,
+            radius: Radius.circular(10.0),
+            interactive: true,
+            trackVisibility: true,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Text(
+                    "It is a long established fact that a reader will be distracted by the readable content",
+                  ),
+                  Text("Hafizur Rhaman Omar"),
+                  Text("Hafizur Rhaman Omar"),
+                  Text("Hafizur Rhaman Omar"),
+                  Text(
+                    "It is a long established fact that a reader will be distracted by the readable content",
+                  ),
+                ],
+              ),
+            ),
           ),
-          const SizedBox(height: 50),
-          Image.network(
-            color: Colors.yellowAccent,
-            colorBlendMode: BlendMode.softLight,
-
-            'https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w600/2023/09/instagram-image-size.jpg',
+          SizedBox(height: 50.0),
+          Wrap(
+            // crossAxisAlignment: WrapCrossAlignment.center,
+            //alignment: WrapAlignment.start,
+            //runAlignment: WrapAlignment.start,
+            spacing: 10,
+            children: [
+              Text(
+                "Hafizur Rhaman Omar,Hafizur Rhaman Omar Hafizur Rhaman Omar",
+              ),
+              Text(
+                "Hafiz Rhaman Omar Hafiz Rhaman OmarHafiz Rhaman OmarHafiz Rhaman Omar Hafiz Rhaman Omar",
+              ),
+              Text("Hafizur Rhaman Omar"),
+              Text("Hafizur Rhaman Omar"),
+              Text("Hafizur Rhaman Omar"),
+            ],
           ),
         ],
       ),
