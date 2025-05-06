@@ -1,173 +1,104 @@
 import 'package:flutter/material.dart';
 
 main() {
-  runApp(const MyApp());
+  runApp(const MyApp()); // Application
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeScreen());
+    return const MaterialApp(home: HomeActivity());
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeActivity extends StatelessWidget {
+  const HomeActivity({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Dialog and showModalBottomSheet")),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ///===================================================================
-          const Text(
-            "This Is Alert Dialog Show",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: 60.00,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 7.0,
-                backgroundColor: Colors.orange,
-                foregroundColor: Colors.white,
-                textStyle: const TextStyle(
-                  fontSize: 20.00,
-                  fontWeight: FontWeight.bold,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.00),
-                ),
-              ),
-
-              onPressed: () {
-                /// showDialog code start
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Delete"),
-                      content: const Text("Do You Want To Close Your App"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("No"),
-                        ),
-                        TextButton(onPressed: () {}, child: const Text("Yes")),
-                      ],
-                    );
-                  },
-                );
-              },
-
-              child: const Text("Delete"),
+          Expanded(
+            flex: 3,
+            child: Row(
+              children: [
+                Expanded(flex: 1, child: Container(color: Colors.amber)),
+                Expanded(flex: 3, child: Container(color: Colors.green)),
+                Expanded(flex: 1, child: Container(color: Colors.red)),
+              ],
             ),
-
-            /// showDialog code end
           ),
-
-          ///=====================================================================
-          const Text(
-            "SimpleDialog Show",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-
-          TextButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SimpleDialog(
-                    title: const Text("ভাষা নির্বাচন করুন"),
+          const SizedBox(height: 20),
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: [
+                Expanded(flex: 1, child: Container(color: Colors.red)),
+                Expanded(
+                  flex: 3,
+                  child: Column(
                     children: [
-                      SimpleDialogOption(
-                        onPressed: () {
-                          // বাংলা নির্বাচন
-                        },
-                        child: const Text("বাংলা"),
-                      ),
-                      SimpleDialogOption(
-                        onPressed: () {
-                          // ইংরেজি নির্বাচন
-                        },
-                        child: const Text("ইংরেজি"),
-                      ),
+                      Expanded(flex: 1, child: Container(color: Colors.black)),
+                      Expanded(flex: 3, child: Container(color: Colors.amber)),
+                      Expanded(flex: 2, child: Container(color: Colors.orange)),
                     ],
-                  );
-                },
-              );
-            },
-            child: const Text("Language Select"),
+                  ),
+                ),
+              ],
+            ),
           ),
-          ////====================================================================
-          const Text(
-            "About Dialog Show",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          const SizedBox(height: 20),
+          Expanded(flex: 3, child: Container(color: Colors.green)),
+          const SizedBox(height: 20),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(child: Container(color: Colors.red)),
+                Expanded(
+                  flex: 3,
+                  child: Container(color: const Color(0xfff1eae9)),
+                ),
+                Expanded(child: Container(color: Colors.red)),
+              ],
+            ),
           ),
-          TextButton(
-            onPressed: () {
-              showAboutDialog(
-                context: context,
-                applicationName: "Bongo App",
-                applicationVersion: "1.0.0",
-                applicationLegalese: "© 2025 Bongo DevOps",
-              );
-            },
-            child: const Text("Bongo App Info"),
+          const SizedBox(height: 20),
+          Expanded(
+            flex: 2,
+            child: Container(
+              height: 300,
+              color: Colors.blue,
+              alignment: Alignment.center,
+              child: const Text("This is Container-01"),
+            ),
           ),
-
-          ///=======================================================
-          const Text(
-            "Bottom Sheet Show",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          const SizedBox(height: 20),
+          Expanded(
+            flex: 4,
+            child: Container(
+              height: 300,
+              color: Colors.grey,
+              alignment: Alignment.center,
+              child: const Text(
+                "Expanded always Total area equal distribution-02",
+              ),
+            ),
           ),
-
-          ElevatedButton(
-            onPressed: () {
-              showModalBottomSheet(
-                isDismissible: false,
-                barrierColor: Colors.orange.shade300,
-                backgroundColor: Colors.yellowAccent,
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: 200,
-                    padding: EdgeInsets.all(20),
-                    child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          Text("নিচের ডায়ালগ"),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("বন্ধ করুন"),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            child: const Text("Bottom Sheet"),
+          const SizedBox(height: 20),
+          Expanded(
+            flex: 2,
+            child: Container(
+              height: 300,
+              color: Colors.red,
+              alignment: Alignment.center,
+              child: const Text("This is Container -03"),
+            ),
           ),
         ],
       ),
