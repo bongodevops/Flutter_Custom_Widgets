@@ -4,11 +4,10 @@ void main() {
   runApp(const MyApp());
 }
 
-String imageLink = "https://avatars.githubusercontent.com/u/80614973?v=4 ";
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(home: MyHomePage());
@@ -25,39 +24,44 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    double myHeight = MediaQuery.of(context).size.height;
-    double myWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Dynamic Height and Width "),
-      ),
-      body: Center(
-        child: Container(
-          width: myWidth,
-          height: myHeight,
-          color: Colors.grey,
-          child: (Column(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.network(
-                width: myWidth,
-                height: myHeight / 2,
-                imageLink,
-                alignment: Alignment.center,
+      appBar: AppBar(title: const Text("Card")),
+      body: Column(
+        children: [
+          Card(
+            color: Colors.blue,
+            elevation: 7.0,
+            child: ListTile(
+              title: Text(" This is My Card Title"),
+              subtitle: Text("Tis is My Subtitle"),
+              leading: Icon(
+                Icons.favorite_border,
+                color: Colors.red,
+                size: 50.0,
               ),
-              const Text("Hafizur Rahman Omar"),
-              Image.asset(
-                'assets/images/bird.jpg',
-                //'assets/images/bird.jpg',
-                width: myWidth / 2,
-                height: myHeight / 3,
+              trailing: Icon(Icons.arrow_forward_ios, color: Colors.yellow),
+            ),
+          ),
+          SizedBox(height: 20),
+          SizedBox(
+            height: 200,
+            width: 300,
+            child: Card(
+              color: Colors.orange,
+              elevation: 7.0,
+              child: ListTile(
+                title: Text(" This is My Card Title"),
+                subtitle: Text("Tis is My Subtitle"),
+                leading: Icon(Icons.add_call, color: Colors.white, size: 50.0),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 50.0,
+                ),
               ),
-            ],
-          )),
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
