@@ -1,151 +1,302 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// KISS - Keep It Simple, Stupid
-
-void main() {
-  runApp(const MyApp());
-}
+void main() => (runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeScreen());
-  }
-}
-
-/// Push
-/// Pop
-/// pushReplacement
-/// PushAndRemoveUntil
-/// Data passing - in and back
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                /// Route = Screen
-                /// Navigator - 1,2
-
-                /// Route 1(Current screen) -> Route 2 (Settings Screen)
-                /// Step 1- Navigator - push
-                /// Step 2 - Context (current route)
-                /// Step 3 - Convert SettingsScreen as Route with MaterialPageRoute
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder:
-                        (context) =>
-                            const SettingsScreen(userName: 'Sara', age: 12),
-                  ),
-                ).then((value) {
-                  if (kDebugMode) {
-                    print(value);
-                  }
-                });
-              },
-              child: const Text('Go to Settings'),
-            ),
-          ],
-        ),
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Text Field Practice",
+      home: MyHomePage(),
     );
   }
 }
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key, required this.userName, this.age});
-
-  final String userName;
-  final int? age;
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(userName),
-            Text(age.toString()),
-            ElevatedButton(
-              onPressed: () {
-                /// Back to previous screen
-                Navigator.pop(context, {'Sara': 12});
-              },
-              child: const Text('Back to Home'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
-                  ),
-                );
-              },
-              child: const Text('Go to Profile'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
-                  ),
-                );
-              },
-              child: const Text('Go to Profile by replace'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
+class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _phoneEditingController = TextEditingController();
+  final TextEditingController _emailEditingController = TextEditingController();
+  final TextEditingController _passwordEditingController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                /// Back to previous screen
-                Navigator.pop(context);
-              },
-              child: const Text('Back to Settings'),
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 80),
+                const Text(
+                  'Sing Up',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                    //decoration: TextDecoration.underline,decorationColor: Colors.blue,decorationStyle: TextDecorationStyle.double
+                  ),
+                ),
+                const SizedBox(height: 50),
+                Column(
+                  children: [
+                    TextFormField(
+                      //enabled: false,
+                      enabled: true,
+                      maxLength: 30,
+                      maxLines: 1,
+                      cursorColor: Colors.blue,
+                      cursorWidth: 2.0,
+                      autocorrect: true,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.name,
+                      textAlign: TextAlign.left,
+
+                      /*
+                      onFieldSubmitted:(String value){
+                        print(_textEditingController.text);
+                        _textEditingController.clear();
+                      },
+
+                      */
+
+                      /*
+                      onTap: (){
+                        /// To Do Here
+                      },
+
+                      onChanged: (String input){
+                        print(input);
+                      },
+
+
+                       */
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.person_2_outlined,
+                          size: 25,
+                          color: Colors.blue,
+                        ),
+                        hintText: 'Enter Your Name',
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        label: const Text('Name'),
+                        labelStyle: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+
+                        /*  border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+
+                        */
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.blue,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                            //strokeAlign: BorderSide.strokeAlignOutside,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.green,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                            //strokeAlign: BorderSide.strokeAlignOutside,
+                          ),
+                        ),
+
+                        // When Text field disable need,In the time => enabled: false, and below code comment out
+                        /*
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.red,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+
+                          ),
+                        ),
+                        */
+                      ),
+                    ),
+                    TextField(
+                      enabled: true,
+                      maxLength: 15,
+                      maxLines: 1,
+                      cursorColor: Colors.blue,
+                      cursorWidth: 2.0,
+                      keyboardType: TextInputType.phone,
+                      textInputAction: TextInputAction.next,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.phone_android_outlined,
+                          size: 25,
+                          color: Colors.blue,
+                        ),
+                        hintText: 'Enter Your Phone Number',
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        label: const Text('Phone'),
+                        labelStyle: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.blue,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                            //strokeAlign: BorderSide.strokeAlignOutside,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.green,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      enabled: true,
+                      maxLength: 100,
+                      maxLines: 1,
+                      cursorColor: Colors.blue,
+                      cursorWidth: 2.0,
+                      autocorrect: true,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.email_outlined,
+                          size: 25,
+                          color: Colors.blue,
+                        ),
+                        hintText: 'Enter Your Email',
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        label: const Text('Email'),
+                        labelStyle: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.blue,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                            //strokeAlign: BorderSide.strokeAlignOutside,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.green,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      enabled: true,
+                      obscureText: true,
+                      maxLength: 32,
+                      maxLines: 1,
+                      cursorColor: Colors.blue,
+                      cursorWidth: 2.0,
+                      autocorrect: true,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.password_outlined,
+                          size: 25,
+                          color: Colors.blue,
+                        ),
+                        suffixIcon: const Icon(
+                          Icons.remove_red_eye_outlined,
+                          size: 25,
+                          color: Colors.blue,
+                        ),
+                        hintText: 'Enter Your Password',
+                        hintStyle: TextStyle(color: Colors.grey.shade500),
+                        label: const Text('Password'),
+                        labelStyle: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.blue,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                            //strokeAlign: BorderSide.strokeAlignOutside,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.green,
+                            width: 2.0,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 32,
+                        ),
+                        textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      child: const Text("Submit"),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                /// Back to previous screen
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                  (route) => false,
-                );
-              },
-              child: const Text('Go to Home'),
-            ),
-          ],
+          ),
         ),
       ),
     );
