@@ -1,302 +1,105 @@
 import 'package:flutter/material.dart';
 
-void main() => (runApp(MyApp()));
+/*
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+আউটপুট বিশ্লেষণ
+অ্যাপ চালু করলে নিচের ক্রমে মেথডগুলো কল হবে:
+
+createState()
+
+initState()
+
+didChangeDependencies()
+
+build()
+
+কাউন্টার বাটনে ক্লিক করলে:
+
+setState() কল হবে
+
+build() আবার কল হবে
+
+Widget টি বন্ধ করলে বা রিমুভ করলে:
+
+deactivate()
+
+dispose()
+ */
+
+void main() {
+  runApp(const MaterialApp(
+    home: EasyLifecycleDemo(),
+  ));
+}
+
+class EasyLifecycleDemo extends StatefulWidget {
+  const EasyLifecycleDemo({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Text Field Practice",
-      home: MyHomePage(),
-    );
+  State<EasyLifecycleDemo> createState() => _EasyLifecycleDemoState();
+}
+
+class _EasyLifecycleDemoState extends State<EasyLifecycleDemo> {
+  int counter = 0;
+  String currentState = "initState চলছে...";
+
+  @override
+  void initState() {
+    super.initState();
+    print("🔵 initState: একবারই চলে (শুরুতে)");
+    currentState = "initState";
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print("🟡 didChangeDependencies: context এর পরিবর্তনে চলে");
+  }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _textEditingController = TextEditingController();
-  final TextEditingController _phoneEditingController = TextEditingController();
-  final TextEditingController _emailEditingController = TextEditingController();
-  final TextEditingController _passwordEditingController =
-      TextEditingController();
+  @override
+  void didUpdateWidget(covariant EasyLifecycleDemo oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("🟠 didUpdateWidget: widget update হলে চলে");
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print("🟤 deactivate: widget সরালে চলে");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("🔴 dispose: সবশেষে চলে, clean করার সময়");
+  }
+
+  void increaseCounter() {
+    setState(() {
+      counter++;
+      currentState = "setState → build";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    double myHeight = MediaQuery.of(context).size.height;
-    double myWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 80),
-                const Text(
-                  'Sing Up',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                    //decoration: TextDecoration.underline,decorationColor: Colors.blue,decorationStyle: TextDecorationStyle.double
-                  ),
-                ),
-                const SizedBox(height: 50),
-                Column(
-                  children: [
-                    TextFormField(
-                      //enabled: false,
-                      enabled: true,
-                      maxLength: 30,
-                      maxLines: 1,
-                      cursorColor: Colors.blue,
-                      cursorWidth: 2.0,
-                      autocorrect: true,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.name,
-                      textAlign: TextAlign.left,
+    print("⚪ build: বারবার চলে setState এ");
 
-                      /*
-                      onFieldSubmitted:(String value){
-                        print(_textEditingController.text);
-                        _textEditingController.clear();
-                      },
-
-                      */
-
-                      /*
-                      onTap: (){
-                        /// To Do Here
-                      },
-
-                      onChanged: (String input){
-                        print(input);
-                      },
-
-
-                       */
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.person_2_outlined,
-                          size: 25,
-                          color: Colors.blue,
-                        ),
-                        hintText: 'Enter Your Name',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        label: const Text('Name'),
-                        labelStyle: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-
-                        /*  border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-
-                        */
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.blue,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                            //strokeAlign: BorderSide.strokeAlignOutside,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.green,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                            //strokeAlign: BorderSide.strokeAlignOutside,
-                          ),
-                        ),
-
-                        // When Text field disable need,In the time => enabled: false, and below code comment out
-                        /*
-                        disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-
-                          ),
-                        ),
-                        */
-                      ),
-                    ),
-                    TextField(
-                      enabled: true,
-                      maxLength: 15,
-                      maxLines: 1,
-                      cursorColor: Colors.blue,
-                      cursorWidth: 2.0,
-                      keyboardType: TextInputType.phone,
-                      textInputAction: TextInputAction.next,
-                      textAlign: TextAlign.left,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.phone_android_outlined,
-                          size: 25,
-                          color: Colors.blue,
-                        ),
-                        hintText: 'Enter Your Phone Number',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        label: const Text('Phone'),
-                        labelStyle: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.blue,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                            //strokeAlign: BorderSide.strokeAlignOutside,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.green,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
-                      ),
-                    ),
-                    TextField(
-                      enabled: true,
-                      maxLength: 100,
-                      maxLines: 1,
-                      cursorColor: Colors.blue,
-                      cursorWidth: 2.0,
-                      autocorrect: true,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      textAlign: TextAlign.left,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.email_outlined,
-                          size: 25,
-                          color: Colors.blue,
-                        ),
-                        hintText: 'Enter Your Email',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        label: const Text('Email'),
-                        labelStyle: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.blue,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                            //strokeAlign: BorderSide.strokeAlignOutside,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.green,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
-                      ),
-                    ),
-                    TextField(
-                      enabled: true,
-                      obscureText: true,
-                      maxLength: 32,
-                      maxLines: 1,
-                      cursorColor: Colors.blue,
-                      cursorWidth: 2.0,
-                      autocorrect: true,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.done,
-                      textAlign: TextAlign.left,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.password_outlined,
-                          size: 25,
-                          color: Colors.blue,
-                        ),
-                        suffixIcon: const Icon(
-                          Icons.remove_red_eye_outlined,
-                          size: 25,
-                          color: Colors.blue,
-                        ),
-                        hintText: 'Enter Your Password',
-                        hintStyle: TextStyle(color: Colors.grey.shade500),
-                        label: const Text('Password'),
-                        labelStyle: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.blue,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                            //strokeAlign: BorderSide.strokeAlignOutside,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                            color: Colors.green,
-                            width: 2.0,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 32,
-                        ),
-                        textStyle: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      child: const Text("Submit"),
-                    ),
-                  ],
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(title: const Text("Lifecycle (Easy)")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("এখন লাইফসাইকেল: $currentState", style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 20),
+            Text("কাউন্টার: $counter", style: const TextStyle(fontSize: 22)),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: increaseCounter,
+              child: const Text("বাড়াও"),
             ),
-          ),
+          ],
         ),
       ),
     );
