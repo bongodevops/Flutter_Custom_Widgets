@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,8 +9,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return  const MaterialApp(
+    return const MaterialApp(
       home: Home(),
     );
   }
@@ -25,189 +23,201 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-  myToast(context, massage) {
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(massage),
-      ),
-    );
+  mySnakeBar(context, mass) {
+    return ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(mass)));
   }
 
-
-
-
-  List<Map<String, String>> myProducts = [
+  List<Map<String, dynamic>> myProducts = [
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 1'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'Apple iMac',
+      'price': 1999.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 2'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'iPad Pro',
+      'price': 799.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 3'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'MacBook Air',
+      'price': 1299.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 4'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'Magic Mouse',
+      'price': 69.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 5'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'AirPods Pro',
+      'price': 249.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 6'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'Apple Watch Series 7',
+      'price': 399.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 7'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'HomePod Mini',
+      'price': 99.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 8'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'iPhone 13 Pro',
+      'price': 1099.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 9'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'Apple Pencil',
+      'price': 129.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 10'
+      'image':
+      'https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg',
+      'title': 'Apple TV 4K',
+      'price': 179.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 11'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Laptop XYZ',
+      'price': 899.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 12'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Gaming Mouse',
+      'price': 49.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 13'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Wireless Keyboard',
+      'price': 79.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 14'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'External Hard Drive',
+      'price': 129.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 15'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Bluetooth Headphones',
+      'price': 69.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 16'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Smartphone Stand',
+      'price': 19.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 17'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Webcam',
+      'price': 59.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 18'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Wireless Charger',
+      'price': 39.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 19'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'Portable Speaker',
+      'price': 89.99
     },
     {
-      'img':
-      'https://cdn.pixabay.com/photo/2023/12/24/00/17/ai-generated-8466443_1280.jpg',
-      'title': 'AI-Generated Image 20'
+      'image':
+      'https://cdn.pixabay.com/photo/2013/07/13/11/46/laptop-158648_640.png',
+      'title': 'USB-C Cable',
+      'price': 9.99
     },
-
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
 
-        child: Scaffold(
-          backgroundColor: Colors.blue,
-          appBar: AppBar(
-            backgroundColor: const Color(0xf7f40606),
-            elevation: 10,
-            leading: const Icon(
-              Icons.settings_applications_sharp,
-              size: 50,
-              color: Colors.amberAccent,
-            ),
-            title: const Text('List View with image'),
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.orange,
+        elevation: 10,
+        leading: const Icon(
+          Icons.settings_applications_sharp,
+          size: 50,
+          color: Colors.white,
+        ),
+        title: const Text('Grid View'),
+      ),
 
 
-          body: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: myProducts.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    myToast(context, myProducts[index]['title']);
-                  },
-                  child: Card(
-                    color:  Colors.grey,
-                    elevation: 5,
-                    child: Container(
-                      width: double.infinity,
-                      height: 250,
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Image.network(
-                              myProducts[index]['img']!,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Text(
-                              myProducts[index]['title']!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                        ],
+      body: GridView.builder(
+          scrollDirection: Axis.vertical,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 1,
+              mainAxisSpacing: 2),
+          itemCount: myProducts.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {},
+              child: Card(
+                color:  Colors.white54,
+                elevation: 5,
+                // child: Container(
+                //   width: double.infinity,
+                //   height: 150,
+                //   padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.network(
+                        myProducts[index]['image']!,
+                        fit: BoxFit.fill,
                       ),
                     ),
-                  ),
-                );
-              }),
-        ),
-      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        myProducts[index]['title']!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '\$${myProducts[index]['price']!}',
+                        style: const TextStyle(
+                          color: Color(0xfff40303),
+                          fontSize: 10.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
     );
   }
 }
-
-
-
-
-
-
-
