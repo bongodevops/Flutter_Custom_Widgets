@@ -128,6 +128,11 @@ class HomeActivity extends StatelessWidget {
                 mySnackBar("I am home", context);
               },
             ),
+            Divider(
+              width: 10,
+              thickness: 2,
+              color: Colors.grey,
+            ),
             ListTile(
               selected: true,
               selectedTileColor: Colors.yellow,
@@ -137,6 +142,11 @@ class HomeActivity extends StatelessWidget {
               onTap: () {
                 mySnackBar("I am email", context);
               },
+              Divider(
+                width: 10,
+                thickness: 2,
+                color: Colors.grey,
+              ),
             ),
             ListTile(
               titleTextStyle: TextStyle(color: Colors.red, fontSize: 20),
@@ -200,6 +210,55 @@ class HomeActivity extends StatelessWidget {
       ),
 
        */
+
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 42,
+                      backgroundImage: NetworkImage(
+                          "https://avatars.githubusercontent.com/u/80614973?v=4"
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      'Hafizur Rahman Omar ',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'hafiz@gmail.com',
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    )
+                  ],
+                )),
+            ListTile(
+              title: Text('Home'),
+              onTap: () {},
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.blue,
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {},
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.blue.shade200,
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
