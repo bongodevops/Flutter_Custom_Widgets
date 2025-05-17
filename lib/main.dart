@@ -9,10 +9,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Responsive Flags',
       debugShowCheckedModeBanner: false,
-      home: const FlagGridScreen(),
+      home: FlagGridScreen(),
     );
   }
 }
@@ -22,77 +22,28 @@ class FlagGridScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    int crossAxisCount = 2; // Mobile by default
-    if (screenWidth > 1024) {
-      crossAxisCount = 4; // Desktop
-    } else if (screenWidth > 768) {
-      crossAxisCount = 3; // Tablet
-    }
-
-    final flagUrls = [
-      'https://flagcdn.com/w320/bd.png',
-      'https://flagcdn.com/w320/us.png',
-      'https://flagcdn.com/w320/gb.png',
-      'https://flagcdn.com/w320/in.png',
-      'https://flagcdn.com/w320/jp.png',
-      'https://flagcdn.com/w320/ca.png',
-      'https://flagcdn.com/w320/fr.png',
-      'https://flagcdn.com/w320/de.png',
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Country Flags'),
         backgroundColor: Colors.teal,
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: GridView.builder(
-          itemCount: flagUrls.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 3 / 4,
+      body: Column(
+        children: [
+          const Text(
+            "Flutter-এ ClipRRect হলো একটি widget যা একটি child widget-এর চারপাশে rounded corner বা বৃত্তাকার প্রান্ত তৈরি করার জন্য ব্যবহৃত হয়। সহজভাবে বললে, এটি এমন একটি widget যেটা আপনার widget-এর কোণগুলো কেটে ফেলে বা clip করে যাতে তা একটি বৃত্তাকার রূপে প্রদর্শিত হয়। Clip ➜ কেটে ফেলা RRect-> Rounded Rectangle বৃত্তাকার প্রান্তযুক্ত আয়তক্ষেত্র ",
           ),
-          itemBuilder: (context, index) {
-            return Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(15),
-                      ),
-                      child: Image.network(
-                        flagUrls[index],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      'Country ${index + 1}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+          const SizedBox(height: 20),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              'https://flagcdn.com/w320/bd.png',
+              fit: BoxFit.cover,
+              width: 200,
+              height: 150,
+            ),
+          ),
+        ],
       ),
     );
   }
