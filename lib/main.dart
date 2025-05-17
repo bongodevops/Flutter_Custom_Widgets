@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,64 +9,91 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(
-      builder: (context, orientation, deviceType) {
-        return const MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'ResponsiveSizer',
-          home: HomeScreen(),
-        );
-      },
+    return MaterialApp(
+      title: 'Responsive Flags',
+      debugShowCheckedModeBanner: false,
+      home: const FlagGridScreen(),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class FlagGridScreen extends StatelessWidget {
+  const FlagGridScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    int crossAxisCount = 2; // Mobile by default
+    if (screenWidth > 1024) {
+      crossAxisCount = 4; // Desktop
+    } else if (screenWidth > 768) {
+      crossAxisCount = 3; // Tablet
+    }
+
+    final flagUrls = [
+      'https://flagcdn.com/w320/bd.png',
+      'https://flagcdn.com/w320/us.png',
+      'https://flagcdn.com/w320/gb.png',
+      'https://flagcdn.com/w320/in.png',
+      'https://flagcdn.com/w320/jp.png',
+      'https://flagcdn.com/w320/ca.png',
+      'https://flagcdn.com/w320/fr.png',
+      'https://flagcdn.com/w320/de.png',
+    ];
+
     return Scaffold(
-      appBar: AppBar(title: const Text("ResponsiveSizer")),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 3.h),
-                child: Container(
-                  color: Colors.indigo,
-                  //It will take a 20% of screen width
-                  width: 120.w,
-                  //It will take a 30% of screen height
-                  height: 80.h,
-                  child: Text(
-                    'This Is Responsive Practice With Sizer Package',
-                    style: TextStyle(fontSize: 25.sp),
-                  ),
-                ),
-              ),
-              FractionallySizedBox(
-                widthFactor: 0.5,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Click Me"),
-                ),
-              ),
-            ],
+      appBar: AppBar(
+        title: const Text('Country Flags'),
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: GridView.builder(
+          itemCount: flagUrls.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 3 / 4,
           ),
+          itemBuilder: (context, index) {
+            return Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(15),
+                      ),
+                      child: Image.network(
+                        flagUrls[index],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      'Country ${index + 1}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
 }
-
-/// https://pub.dev/packages/sizer
-/// https://pub.dev/packages/responsive_sizer
