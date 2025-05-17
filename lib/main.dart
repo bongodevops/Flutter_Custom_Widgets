@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-/// SizedBox
-/// FractionallySizedBox
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +10,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeScreen());
+    return ResponsiveSizer(
+      builder: (context, orientation, deviceType) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'ResponsiveSizer',
+          home: HomeScreen(),
+        );
+      },
+    );
   }
 }
 
@@ -27,33 +33,41 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Text('Home Screen'),
-      ),
+      appBar: AppBar(title: const Text("ResponsiveSizer")),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              color: Colors.indigo,
-              height: 400,
-              child: FractionallySizedBox(
-                widthFactor: 1.0,
-                heightFactor: 0.5,
-                child: Container(color: Colors.amber),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 3.h),
+                child: Container(
+                  color: Colors.indigo,
+                  //It will take a 20% of screen width
+                  width: 120.w,
+                  //It will take a 30% of screen height
+                  height: 80.h,
+                  child: Text(
+                    'This Is Responsive Practice With Sizer Package',
+                    style: TextStyle(fontSize: 25.sp),
+                  ),
+                ),
               ),
-            ),
-
-            FractionallySizedBox(
-              widthFactor: 0.5,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Elevated Button'),
+              FractionallySizedBox(
+                widthFactor: 0.5,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text("Click Me"),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+/// https://pub.dev/packages/sizer
+/// https://pub.dev/packages/responsive_sizer
