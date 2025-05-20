@@ -1,197 +1,238 @@
 import 'package:flutter/material.dart';
 
-void main() => (runApp(MyApp()));
+void main() {
+  runApp(const ContactListApp());
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ContactListApp extends StatelessWidget {
+  const ContactListApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      title: 'Contact List',
+      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
       debugShowCheckedModeBanner: false,
-      title: "Text Field Practice",
-      home: MyHomePage(),
+      home: const ContactListScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Contact {
+  final String name;
+  final String phone;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Contact({required this.name, required this.phone});
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+class ContactListScreen extends StatefulWidget {
+  const ContactListScreen({super.key});
 
-  void _submitForm() {
+  @override
+  State<ContactListScreen> createState() => _ContactListScreenState();
+}
+
+class _ContactListScreenState extends State<ContactListScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final List<Contact> _contacts = [];
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  void _addContact() {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _contacts.add(
+          Contact(
+            name: _nameController.text.trim(),
+            phone: _phoneController.text.trim(),
+          ),
+        );
+        _nameController.clear();
+        _phoneController.clear();
+      });
+      FocusScope.of(context).unfocus();
+    }
+  }
+
+  Future<bool> _showDeleteConfirmation(int index) async {
+    return await showDialog<bool>(
+          context: context,
+          builder:
+              (context) => AlertDialog(
+                title: const Text('Delete Contact'),
+                content: Text('Delete ${_contacts[index].name}?'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: const Text(
+                      'Delete',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ],
+              ),
+        ) ??
+        false;
+  }
+
+  Future<void> _deleteContact(int index) async {
+    final shouldDelete = await _showDeleteConfirmation(index);
+    if (shouldDelete && mounted) {
+      setState(() {
+        _contacts.removeAt(index);
+      });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Form Submitted Successfully")),
+        const SnackBar(
+          content: Text('Contact deleted'),
+          duration: Duration(seconds: 2),
+        ),
       );
-      //print("Name: ${nameController.text}");
-      //print("Phone: ${phoneController.text}");
-      //print("Email: ${emailController.text}");
-      //print("Password: ${passwordController.text}");
-      _formKey.currentState!.reset();
     }
   }
 
   @override
-  void dispose() {
-    nameController.dispose();
-    phoneController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    double myHeight = MediaQuery.of(context).size.height;
-    double myWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Form(
+    return Scaffold(
+      appBar: AppBar(title: const Text('Contact List'), centerTitle: true),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Form(
               key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 80),
-                  const Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  const SizedBox(height: 50),
                   TextFormField(
-                    controller: nameController,
-                    maxLength: 30,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.name,
-                    decoration: _buildInputDecoration(
-                      'Name',
-                      Icons.person_2_outlined,
+                    controller: _nameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.person),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter a name';
                       }
                       return null;
                     },
                   ),
+                  const SizedBox(height: 16),
                   TextFormField(
-                    controller: phoneController,
-                    maxLength: 15,
-                    textInputAction: TextInputAction.next,
+                    controller: _phoneController,
+                    decoration: const InputDecoration(
+                      labelText: 'Phone Number',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.phone),
+                    ),
                     keyboardType: TextInputType.phone,
-                    decoration: _buildInputDecoration(
-                      'Phone',
-                      Icons.phone_android_outlined,
-                    ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number';
-                      } else if (value.length < 11) {
-                        return 'Enter a valid phone number';
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter a phone number';
+                      }
+                      if (!RegExp(r'^[0-9]{10,}$').hasMatch(value)) {
+                        return 'Enter a valid phone number (min 10 digits)';
                       }
                       return null;
                     },
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    maxLength: 100,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: _buildInputDecoration(
-                      'Email',
-                      Icons.email_outlined,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                        return 'Enter a valid email';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    maxLength: 32,
-                    textInputAction: TextInputAction.done,
-                    decoration: _buildInputDecoration(
-                      'Password',
-                      Icons.password_outlined,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      } else if (value.length < 6) {
-                        return 'Password must be at least 6 characters';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _submitForm,
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16,
-                        horizontal: 32,
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    child: const Text("Submit"),
                   ),
                 ],
               ),
             ),
-          ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton.icon(
+                onPressed: _addContact,
+                icon: const Icon(Icons.add),
+                label: const Text('Add Contact'),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Divider(),
+            const SizedBox(height: 10),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Your Contacts',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child:
+                  _contacts.isEmpty
+                      ? const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.contacts, size: 60, color: Colors.grey),
+                            SizedBox(height: 16),
+                            Text(
+                              'No contacts yet',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                      : ListView.builder(
+                        itemCount: _contacts.length,
+                        itemBuilder: (context, index) {
+                          final contact = _contacts[index];
+                          return Card(
+                            elevation: 2,
+                            margin: const EdgeInsets.symmetric(vertical: 6),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    Colors.primaries[index %
+                                        Colors.primaries.length],
+                                child: Text(
+                                  contact.name[0].toUpperCase(),
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              title: Text(
+                                contact.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(contact.phone),
+                              trailing: IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () => _deleteContact(index),
+                              ),
+                              onLongPress: () => _deleteContact(index),
+                            ),
+                          );
+                        },
+                      ),
+            ),
+          ],
         ),
-      ),
-    );
-  }
-
-  ///===================================================================///
-  InputDecoration _buildInputDecoration(String label, IconData icon) {
-    return InputDecoration(
-      prefixIcon: Icon(icon, size: 25, color: Colors.blue),
-      hintText: 'Enter Your $label',
-      hintStyle: TextStyle(color: Colors.grey.shade500),
-      label: Text(label),
-      labelStyle: const TextStyle(
-        color: Colors.blue,
-        fontSize: 20,
-        fontWeight: FontWeight.w700,
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Colors.blue, width: 2.0),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Colors.green, width: 2.0),
       ),
     );
   }
